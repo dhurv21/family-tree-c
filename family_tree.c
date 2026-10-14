@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h> // malloc 
 
 typedef struct Person {
     char name[50];
@@ -9,10 +10,9 @@ typedef struct Person {
 } Person;
 
 Person* create_person(const char *name, int age);
-
+void read_person_info(const char *role, char *name_out, int *age_out);
 int main(void) {
     printf("program initialized \n");
-    return 0;
 }
 
 Person* create_person(const char *name, int age) {
@@ -27,4 +27,15 @@ Person* create_person(const char *name, int age) {
     new_person->mother = NULL;
 
     return new_person;
+}
+
+void read_person_info(const char *role, char *name_out, int *age_out) {
+    printf("%s's name: ", role);
+    scanf("%s", name_out);
+
+
+    printf("%s's age: ", role);
+
+    scanf("%d", age_out);
+
 }
