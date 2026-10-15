@@ -11,6 +11,9 @@ typedef struct Person {
 
 Person* create_person(const char *name, int age);
 void read_person_info(const char *role, char *name_out, int *age_out);
+void link_parents(Person *child, Person *father, Person *mother);
+void print_family_relationships(const Person *me);
+
 int main(void) {
     printf("program initialized \n");
     char name[50];
@@ -34,6 +37,14 @@ int main(void) {
     //me
     read_person_info("you", name, &age);
     Person *me = create_person(name, age);
+
+    // relationships
+    link_parents(father, pat_gf, pat_gm);
+    link_parents(mother, mat_gf, mat_gm);
+    link_parents(me, father, mother); 
+
+    // printing time
+    print_family_relationships(me);
 
 }
 
@@ -60,4 +71,27 @@ void read_person_info(const char *role, char *name_out, int *age_out) {
 
     scanf("%d", age_out);
 
+}
+
+void link_parents(Person *child, Person *father, Person *mother) {
+    child->father = father;
+    child->mother = mother;
+}
+
+void print_family_relationships(const Person *me) {
+printf("===FAMILY TREE RELATIONSHIPS=== \n");
+    printf("You: \n");
+    printf("Name: %s | Age: %d\n", me->name, me->age); 
+
+    printf("Parents: \n");
+    printf("Father: %s | Age: %d \n", me->father->name, me->father->age);
+    printf("Mother: %s | Age: %d \n", me->mother->name, me->mother->age);
+
+    printf("Paternal grandparents:\n ");
+    printf("Grandfather %s | Age: %d \n", me->father->father->name, me->father->father->age);
+    printf("GRandmother %s | Age: %d \n", me->father->mother->name, me->father->mother->age);
+
+    printf("Maternal grandparents:\n ");
+    printf("Grandfather %s | Age: %d \n", me->mother->father->name, me->mother->father->age);
+    printf("GRandmother %s | Age: %d \n", me->mother->mother->name, me->mother->mother->age);
 }
